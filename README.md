@@ -83,10 +83,10 @@ Source of original paper results: [https://arxiv.org/pdf/1905.02244v5.pdf](https
 
 In the following table, the top-x error value in `()` indicates the result of the project, and `-` indicates no test.
 
-|       Model        |   Dataset   | Top-1 error (val) | Top-5 error (val) |
-|:------------------:|:-----------:|:-----------------:|:-----------------:|
-| mobilenet_v3_small | ImageNet_1K | 32.6%(**28.0%**)  |    -(**9.4%**)    |
-| mobilenet_v3_large | ImageNet_1K | 24.8%(**28.0%**)  |    -(**9.4%**)    |
+|         Model          |   Dataset   | Top-1 error (val) | Top-5 error (val) |
+|:----------------------:|:-----------:|:-----------------:|:-----------------:|
+| mobilenet_v3_small-1.0 | ImageNet_1K | 32.6%(**32.3%**)  |   -(**12.5%**)    |
+| mobilenet_v3_large-1.0 | ImageNet_1K | 24.8%(**24.7%**)  |    -(**7.4%**)    |
 
 ```bash
 # Download `MobileNetV3_small-ImageNet_1K-73d198d1.pth.tar` weights to `./results/pretrained_models`
