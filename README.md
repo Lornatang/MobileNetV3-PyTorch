@@ -1,14 +1,12 @@
-# MobileNetV2-PyTorch
+# MobileNetV3-PyTorch
 
 ## Overview
 
-This repository contains an op-for-op PyTorch reimplementation
-of [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/pdf/1801.04381v4.pdf)
-.
+This repository contains an op-for-op PyTorch reimplementation of [Searching for MobileNetV3](https://arxiv.org/pdf/1905.02244v5.pdf).
 
 ## Table of contents
 
-- [MobileNetV2-PyTorch](#mobilenetv2-pytorch)
+- [MobileNetV3-PyTorch](#mobilenetv3-pytorch)
     - [Overview](#overview)
     - [Table of contents](#table-of-contents)
     - [Download weights](#download-weights)
@@ -20,7 +18,7 @@ of [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/pd
     - [Result](#result)
     - [Contributing](#contributing)
     - [Credit](#credit)
-        - [MobileNetV2: Inverted Residuals and Linear Bottlenecks](#mobilenetv2-inverted-residuals-and-linear-bottlenecks)
+        - [Searching for MobileNetV3](#searching-for-mobilenetv3)
 
 ## Download weights
 
@@ -42,12 +40,12 @@ Both training and testing only need to modify the `config.py` file.
 
 ### Test
 
-- line 29: `model_arch_name` change to `mobilenet_v2`.
+- line 29: `model_arch_name` change to `mobilenet_v3_small`.
 - line 31: `model_mean_parameters` change to `[0.485, 0.456, 0.406]`.
 - line 32: `model_std_parameters` change to `[0.229, 0.224, 0.225]`.
 - line 34: `model_num_classes` change to `1000`.
 - line 36: `mode` change to `test`.
-- line 89: `model_weights_path` change to `./results/pretrained_models/MobileNetV2-ImageNet_1K-86ab0476.pth.tar`.
+- line 89: `model_weights_path` change to `./results/pretrained_models/MobileNetV3_small-ImageNet_1K-73d198d1.pth.tar`.
 
 ```bash
 python3 test.py
@@ -55,13 +53,12 @@ python3 test.py
 
 ### Train model
 
-- line 29: `model_arch_name` change to `mobilenet_v2`.
+- line 29: `model_arch_name` change to `mobilenet_v3_small`.
 - line 31: `model_mean_parameters` change to `[0.485, 0.456, 0.406]`.
 - line 32: `model_std_parameters` change to `[0.229, 0.224, 0.225]`.
 - line 34: `model_num_classes` change to `1000`.
 - line 36: `mode` change to `train`.
-- line 50: `pretrained_model_weights_path` change
-  to `./results/pretrained_models/MobileNetV2-ImageNet_1K-86ab0476.pth.tar`.
+- line 50: `pretrained_model_weights_path` change to `./results/pretrained_models/MobileNetV3_small-ImageNet_1K-73d198d1.pth.tar`.
 
 ```bash
 python3 train.py
@@ -69,12 +66,12 @@ python3 train.py
 
 ### Resume train model
 
-- line 29: `model_arch_name` change to `mobilenet_v2`.
+- line 29: `model_arch_name` change to `mobilenet_v3_small`.
 - line 31: `model_mean_parameters` change to `[0.485, 0.456, 0.406]`.
 - line 32: `model_std_parameters` change to `[0.229, 0.224, 0.225]`.
 - line 34: `model_num_classes` change to `1000`.
 - line 36: `mode` change to `train`.
-- line 53: `resume` change to `./samples/mobilenet_v2-ImageNet_1K/epoch_xxx.pth.tar`.
+- line 53: `resume` change to `./samples/mobilenet_v3_small-ImageNet_1K/epoch_xxx.pth.tar`.
 
 ```bash
 python3 train.py
@@ -82,16 +79,17 @@ python3 train.py
 
 ## Result
 
-Source of original paper results: [https://arxiv.org/pdf/1801.04381v4.pdf](https://arxiv.org/pdf/1801.04381v4.pdf))
+Source of original paper results: [https://arxiv.org/pdf/1905.02244v5.pdf](https://arxiv.org/pdf/1905.02244v5.pdf))
 
 In the following table, the top-x error value in `()` indicates the result of the project, and `-` indicates no test.
 
-|    Model     |   Dataset   | Top-1 error (val) | Top-5 error (val) |
-|:------------:|:-----------:|:-----------------:|:-----------------:|
-| mobilenet_v2 | ImageNet_1K | 28.0%(**28.0%**)  |    -(**9.4%**)    |
+|       Model        |   Dataset   | Top-1 error (val) | Top-5 error (val) |
+|:------------------:|:-----------:|:-----------------:|:-----------------:|
+| mobilenet_v3_small | ImageNet_1K | 28.0%(**28.0%**)  |    -(**9.4%**)    |
+| mobilenet_v3_large | ImageNet_1K | 28.0%(**28.0%**)  |    -(**9.4%**)    |
 
 ```bash
-# Download `MobileNetV2-ImageNet_1K-86ab0476.pth.tar` weights to `./results/pretrained_models`
+# Download `MobileNetV3_small-ImageNet_1K-73d198d1.pth.tar` weights to `./results/pretrained_models`
 # More detail see `README.md<Download weights>`
 python3 ./inference.py 
 ```
@@ -103,13 +101,13 @@ Input:
 Output:
 
 ```text
-Build `mobilenet_v2` model successfully.
-Load `mobilenet_v2` model weights `/MobileNetV2-PyTorch/results/pretrained_models/MobileNetV2-ImageNet_1K-86ab0476.pth.tar` successfully.
-tench, Tinca tinca                                                          (24.90%)
-barracouta, snoek                                                           (7.63%)
-gar, garfish, garpike, billfish, Lepisosteus osseus                         (1.00%)
-soccer ball                                                                 (0.71%)
-reel                                                                        (0.66%)
+Build `mobilenet_v3_small` model successfully.
+Load `mobilenet_v3_small` model weights `/MobileNetV3-PyTorch/results/pretrained_models/MobileNetV3_small-ImageNet_1K-73d198d1.pth.tar` successfully.
+tench, Tinca tinca                                                          (19.38%)
+barracouta, snoek                                                           (7.93%)
+platypus, duckbill, duckbilled platypus, duck-billed platypus, Ornithorhynchus anatinus (6.00%)
+gar, garfish, garpike, billfish, Lepisosteus osseus                         (4.50%)
+triceratops                                                                 (1.97%)
 ```
 
 ## Contributing
@@ -121,35 +119,35 @@ I look forward to seeing what the community does with these models!
 
 ### Credit
 
-#### MobileNetV2: Inverted Residuals and Linear Bottlenecks
+#### Searching for MobileNetV3
 
-*Mark Sandler, Andrew Howard, Menglong Zhu, Andrey Zhmoginov, Liang-Chieh Chen*
+*Andrew Howard, Mark Sandler, Grace Chu, Liang-Chieh Chen, Bo Chen, Mingxing Tan, Weijun Wang, Yukun Zhu, Ruoming Pang,
+Vijay Vasudevan, Quoc V. Le, Hartwig Adam*
 
 ##### Abstract
 
-In this paper we describe a new mobile architecture, MobileNetV2, that improves the state of the art performance of
-mobile models on multiple tasks and benchmarks as well as across a spectrum of different model sizes. We also describe
-efficient ways of applying these mobile models to object detection in a novel framework we call SSDLite. Additionally,
-we demonstrate how to build mobile semantic segmentation models through a reduced form of DeepLabv3 which we call Mobile
-DeepLabv3.
-The MobileNetV2 architecture is based on an inverted residual structure where the input and output of the residual block
-are thin bottleneck layers opposite to traditional residual models which use expanded representations in the input an
-MobileNetV2 uses lightweight depthwise convolutions to filter features in the intermediate expansion layer.
-Additionally, we find that it is important to remove non-linearities in the narrow layers in order to maintain
-representational power. We demonstrate that this improves performance and provide an intuition that led to this design.
-Finally, our approach allows decoupling of the input/output domains from the expressiveness of the transformation, which
-provides a convenient framework for further analysis. We measure our performance on Imagenet classification, COCO object
-detection, VOC image segmentation. We evaluate the trade-offs between accuracy, and number of operations measured by
-multiply-adds (MAdd), as well as the number of parameters
+We present the next generation of MobileNets based on a combination of complementary search techniques as well as a
+novel architecture design. MobileNetV3 is tuned to mobile phone CPUs through a combination of hardware-aware network
+architecture search (NAS) complemented by the NetAdapt algorithm and then subsequently improved through novel
+architecture advances. This paper starts the exploration of how automated search algorithms and network design can work
+together to harness complementary approaches improving the overall state of the art. Through this process we create two
+new MobileNet models for release: MobileNetV3-Large and MobileNetV3-Small which are targeted for high and low resource
+use cases. These models are then adapted and applied to the tasks of object detection and semantic segmentation. For the
+task of semantic segmentation (or any dense pixel prediction), we propose a new efficient segmentation decoder Lite
+Reduced Atrous Spatial Pyramid Pooling (LR-ASPP). We achieve new state of the art results for mobile classification,
+detection and segmentation. MobileNetV3-Large is 3.2\% more accurate on ImageNet classification while reducing latency
+by 15\% compared to MobileNetV2. MobileNetV3-Small is 4.6\% more accurate while reducing latency by 5\% compared to
+MobileNetV2. MobileNetV3-Large detection is 25\% faster at roughly the same accuracy as MobileNetV2 on COCO detection.
+MobileNetV3-Large LR-ASPP is 30\% faster than MobileNetV2 R-ASPP at similar accuracy for Cityscapes segmentation.
 
-[[Paper]](https://arxiv.org/pdf/1801.04381v4.pdf)
+[[Paper]](https://arxiv.org/pdf/1905.02244v5.pdf)
 
 ```bibtex
-@inproceedings{sandler2018mobilenetv2,
-  title={Mobilenetv2: Inverted residuals and linear bottlenecks},
-  author={Sandler, Mark and Howard, Andrew and Zhu, Menglong and Zhmoginov, Andrey and Chen, Liang-Chieh},
-  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
-  pages={4510--4520},
-  year={2018}
+@inproceedings{howard2019searching,
+  title={Searching for mobilenetv3},
+  author={Howard, Andrew and Sandler, Mark and Chu, Grace and Chen, Liang-Chieh and Chen, Bo and Tan, Mingxing and Wang, Weijun and Zhu, Yukun and Pang, Ruoming and Vasudevan, Vijay and others},
+  booktitle={Proceedings of the IEEE/CVF international conference on computer vision},
+  pages={1314--1324},
+  year={2019}
 }
 ```

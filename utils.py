@@ -14,13 +14,13 @@
 import os
 import shutil
 from enum import Enum
-from typing import Any, Dict, TypeVar
+from typing import Any, Dict, TypeVar, Optional
 
 import torch
 from torch import nn
 
 __all__ = [
-    "accuracy", "load_state_dict", "make_directory", "ovewrite_named_param", "save_checkpoint",
+    "accuracy", "load_state_dict", "make_directory", "ovewrite_named_param", "make_divisible", "save_checkpoint",
     "Summary", "AverageMeter", "ProgressMeter"
 ]
 
@@ -84,7 +84,7 @@ def load_state_dict(
                       k in model_state_dict.keys() and v.size() == model_state_dict[k].size()}
         # Overwrite the model weights to the current model
         model_state_dict.update(state_dict)
-        model.load_state_dict(model_state_dict)
+        model.load_state_dict(checkpoint["state_dict"])
 
     return model, ema_model, start_epoch, best_acc1, optimizer, scheduler
 
@@ -100,6 +100,18 @@ def ovewrite_named_param(kwargs: Dict[str, Any], param: str, new_value: V) -> No
             raise ValueError(f"The parameter '{param}' expected value {new_value} but got {kwargs[param]} instead.")
     else:
         kwargs[param] = new_value
+
+
+def make_divisible(v: float, divisor: int, min_value: Optional[int] = None) -> int:
+    """Copy from: https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
+    """
+    if min_value is None:
+        min_value = divisor
+    new_v = max(min_value, int(v + divisor / 2) // divisor * divisor)
+    # Make sure that round down does not go down by more than 10%.
+    if new_v < 0.9 * v:
+        new_v += divisor
+    return new_v
 
 
 def save_checkpoint(
