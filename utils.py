@@ -84,7 +84,7 @@ def load_state_dict(
                       k in model_state_dict.keys() and v.size() == model_state_dict[k].size()}
         # Overwrite the model weights to the current model
         model_state_dict.update(state_dict)
-        model.load_state_dict(checkpoint["state_dict"])
+        model.load_state_dict(model_state_dict)
 
     return model, ema_model, start_epoch, best_acc1, optimizer, scheduler
 

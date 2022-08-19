@@ -78,10 +78,10 @@ class MobileNetV3(nn.Module):
 
         if arch_name == "mobilenet_v3_small":
             arch_cfg = mobilenet_v3_small_cfg
-            last_channels = 1024 // reduce_divider
+            last_channels = make_divisible(1024 // reduce_divider, 8)
         else:
             arch_cfg = mobilenet_v3_large_cfg
-            last_channels = 1280 // reduce_divider
+            last_channels = make_divisible(1280 // reduce_divider, 8)
 
         # Modify arch config
         arch_cfg[-3][2] = arch_cfg[-3][2] // reduce_divider
@@ -239,7 +239,10 @@ class InvertedResidual(nn.Module):
         )
         # SqueezeExcitation
         if use_se:
-            block.append(SqueezeExcitation(expand_channels, make_divisible(expand_channels // 4, 8)))
+            block.append(SqueezeExcitation(input_channels=expand_channels,
+                                           squeeze_channels=make_divisible(expand_channels // 4, 8),
+                                           activation=nn.ReLU,
+                                           scale_activation=nn.Hardsigmoid))
         block.append(
             # project
             Conv2dNormActivation(

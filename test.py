@@ -14,12 +14,13 @@
 import os
 import time
 
-import config
-import model
 import torch
-from dataset import CUDAPrefetcher, ImageDataset
 from torch import nn
 from torch.utils.data import DataLoader
+
+import config
+import model
+from dataset import CUDAPrefetcher, ImageDataset
 from utils import load_state_dict, accuracy, Summary, AverageMeter, ProgressMeter
 
 model_names = sorted(
